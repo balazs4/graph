@@ -1,0 +1,10 @@
+{
+  "name": "graph",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx -q onchange -i -k index.js -- node index.js"
+  },
+  "author": "balazs4",
+  "license": "MIT"
+}
