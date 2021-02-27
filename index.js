@@ -4,9 +4,12 @@ const schema = buildSchema(`type Query { hello: String }`);
 const root = { hello: () => `world` };
 const resolve = (request) => graphql(schema, request, root);
 
+const debug = require('debug');
 const { createServer } = require('http');
 const { parse } = require('url');
-const { PORT = 3000 } = process.env;
+
+const { PORT = 3000, npm_package_name = 'app' } = process.env;
+const log = debug(npm_package_name);
 
 const fromurl = (req) => {
   const url = parse(req.url);
@@ -31,11 +34,13 @@ const frombody = async (req) => {
 createServer(async (req, res) => {
   const request = req.method === 'GET' ? fromurl(req) : await frombody(req);
   if (request === '') {
+    log(`400 ${req.method} ${req.url}`);
     return res
       .writeHead(400, { 'content-type': 'text/plain' })
       .end('Bad request', 'utf-8');
   }
   const result = await resolve(request);
+  log(`200 ${req.method} ${req.url} => graphql: ${request}`);
   return res
     .writeHead(200, { 'content-type': 'application/json' })
     .end(JSON.stringify(result), 'utf-8');
