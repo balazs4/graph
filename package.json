@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx -q onchange -i -k index.js -- node index.js"
+    "start": "node index.js",
+    "dev": "onchange -i -k '*.js' -- npm run -s"
   },
   "author": "balazs4",
   "license": "MIT",
   "dependencies": {
     "debug": "4.3.1",
     "graphql": "15.5.0"
+  },
+  "devDependencies": {
+    "onchange": "7.1.0"
   }
 }
