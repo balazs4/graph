@@ -1,5 +1,5 @@
-const assert = require('assert');
-const graphql = require('./graphql');
+import { deepStrictEqual } from 'assert';
+import graphql from './graphql.js';
 
 const data = (x) => {
   return { data: Object.setPrototypeOf(x, null) };
@@ -8,5 +8,5 @@ const data = (x) => {
 test('{ hello } query should return { "hello": "world"} data', async () => {
   const actual = await graphql('{hello}');
   const expected = data({ hello: 'world' });
-  assert.deepStrictEqual(actual, expected);
+  deepStrictEqual(actual, expected);
 });

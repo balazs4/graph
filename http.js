@@ -1,6 +1,7 @@
-const { createServer } = require('http');
-const { parse } = require('url');
-const log = require('debug')(`${process.env.npm_package_name}`);
+import { createServer } from 'http';
+import { parse } from 'url';
+import debug from 'debug';
+const log = debug(`${process.env.npm_package_name}`);
 
 const fromurl = (req) => {
   const url = parse(req.url);
@@ -22,7 +23,7 @@ const frombody = async (req) => {
   });
 };
 
-module.exports = (graphql) =>
+export default (graphql) =>
   createServer(async (req, res) => {
     const request = req.method === 'GET' ? fromurl(req) : await frombody(req);
     if (request === '') {

@@ -1,5 +1,5 @@
-const { graphql, buildSchema } = require('graphql');
+import { graphql, buildSchema } from 'graphql';
 
 const schema = buildSchema(`type Query { hello: String }`);
 const root = { hello: () => `world` };
-module.exports = (request) => graphql(schema, request, root);
+export default (request) => graphql(schema, request, root);
